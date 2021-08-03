@@ -13,11 +13,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import backup.ArmazensGeraisPage;
-import backup.LojaPage;
 import backup.ProdutoAgricolaPage;
 import backup.SementeiraPage;
+import page.ArmazensGeraisPage;
 import page.DistribuidorPage;
+import page.LojaPage;
 import page.Page;
 import page.Segmentos;
 import suporte.Web;
@@ -30,7 +30,9 @@ public class TestesSiagri {
 	private Controle controle;
 	private Segmentos segmentos;
 	private DistribuidorPage distribuidor;
-
+	private LojaPage loja;
+	private ArmazensGeraisPage armazens;
+	
 	@Before
 	public void Conectar() {
 		driver = Web.createChrome();
@@ -38,6 +40,8 @@ public class TestesSiagri {
 		segmentos = new Segmentos(driver);
 		pagina = new Page(driver);
 		distribuidor = new DistribuidorPage(driver);
+		loja= new LojaPage(driver);
+		armazens= new ArmazensGeraisPage(driver);
 	}
 
 	@After
@@ -70,6 +74,7 @@ public class TestesSiagri {
 	public void Exercicio2() {
 
 		pagina.clickSegmentos();
+		
 		Assert.assertEquals("Softwares para gestão de distribuidores de insumos agrícolas", distribuidor.tituloDistruibidor());
 		Assert.assertEquals("Otimize processos, reduza desperdícios e tenha o controle de suas lojas em qualquer hora e lugar."
 				+ " Com o Grupo Siagri, você compra melhor, evita perdas no estoque, vende com mais eficiência e ainda tem mais segurança nas operações de Barter!",
@@ -85,15 +90,15 @@ public class TestesSiagri {
 
 		// Validar desafios
 		
-		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaEstoqueEficiente().equals("Estoque eficiente"));
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.desafioEstoqueEficiente().equals("Estoque eficiente"));
 		
-		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaFormacaodePrecos().equals("Formação de preços"));
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.desafioFormacaodePrecos().equals("Formação de preços"));
 		
-		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaGestaologistica().equals("Gestão de logística (expedição)"));
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.desafioGestaologistica().equals("Gestão de logística (expedição)"));
 		
-		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaMixAtividades().equals("Ampliar mix de atividades (armazenagem, Barter etc)"));
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.desafioMixAtividades().equals("Ampliar mix de atividades (armazenagem, Barter etc)"));
 				
-		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaGestaoOrcamentaria1().equals("Gestão orçamentária"));
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.desafioGestaoOrcamentaria().equals("Gestão orçamentária"));
 		
 	}
 
@@ -101,14 +106,13 @@ public class TestesSiagri {
 	public void Exercicio3() {
 		// new Page(driver).clickSolucoes().menuSegmentos();
 		new LojaPage(driver).clickLojaAgropecuaria();
-		String Titulo = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/h2")))
-				.getText();
-		assertEquals("Softwares para gestão de lojas e varejo agropecuário", Titulo);
-		String descricao = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p[2]")))
-				.getText();
-		assertEquals(
-				"Ganhe agilidade em vendas, confiança nos controles de estoque e custos. Fidelize seu cliente e gerencie sua loja agropecuária de forma completa com o software Siagri.",
-				descricao);
+		
+		Assert.assertEquals("Softwares para gestão de lojas e varejo agropecuário",loja.tituloLoja());
+		
+		Assert.assertEquals(
+				"Ganhe agilidade em vendas, confiança nos controles de estoque e custos. Fidelize seu cliente e gerencie sua loja agropecuária de "
+				+ "forma completa com o software Siagri.",
+				loja.descricaoLoja());
 
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
 // verificando abertura do formulário conforme a descrição
@@ -116,58 +120,49 @@ public class TestesSiagri {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
 
 // Validar desafios
-		WebElement agilidade = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]/span"));
-		assertTrue(agilidade.getText().equals("Agilidade no atendimento"));
-
-		WebElement eficiencia = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[2]/span"));
-		assertTrue(eficiencia.getText().equals("Eficiência operacional"));
-
-		WebElement controle = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[3]/span"));
-		assertTrue(controle.getText().equals("Controle de comissionamento"));
-
-		WebElement fiscal = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[5]/span"));
-		assertTrue(fiscal.getText().equals("Conformidade fiscal"));
-
-		WebElement fluxo = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[6]/span"));
-		assertTrue(fluxo.getText().equals("Eficiência no fluxo de caixa em dia"));
-
+		Assert.assertTrue("Não é um desafio do segmento",loja.desafioAgilidade().equals("Agilidade no atendimento"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",loja.desafioEficiencia().equals("Eficiência operacional"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",loja.desafioControle().equals("Controle de comissionamento"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",loja.desafioFiscal().equals("Conformidade fiscal"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",loja.desafioFluxo().equals("Eficiência no fluxo de caixa em dia"));
+		
 	}
 
 	@Test
 	public void Exercicio4() {
 		// new Page(driver).clickSolucoes().menuSegmentos();
 		new ArmazensGeraisPage(driver).clickArmazensGerais();
-		String Titulo = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/h2")))
-				.getText();
-		assertEquals("Softwares para gestão de armazéns gerais e cerealistas", Titulo);
-		String descricao = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p")))
-				.getText();
-		assertEquals(
-				"Ganhe eficiência desde o recebimento até a expedição dos grãos. Com o Grupo Siagri, você gerencia todos os processos de armazenagem de grãos com agilidade e segurança.",
-				descricao);
+		Assert.assertEquals("Softwares para gestão de armazéns gerais e cerealistas", armazens.tituloArmazens());
+		
+		Assert.assertEquals(
+				"Ganhe eficiência desde o recebimento até a expedição dos grãos. Com o Grupo Siagri, você gerencia todos os processos de armazenagem de grãos "
+				+ "com agilidade e segurança.",
+				armazens.descricaoArmazens());
 
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-
+		
 		// verificando abertura do formulário conforme a descrição
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
 		driver.findElement(By.xpath("//*[@id=\"form-close\"]")).click();
 
+		
 		// Validar desafios
-		WebElement contrato = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]/span"));
-		assertTrue(contrato.getText().equals("Gestão de contratos"));
-
-		WebElement terceiros = driver.findElement(By.xpath("/html/body/section[4]/div/div[2]/div[2]/span"));
-		assertTrue(terceiros.getText().equals("Controle de saldos de terceiros"));
-
-		WebElement retencoes = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[4]/span"));
-		assertTrue(retencoes.getText().equals("Controle de retenções e transgenia"));
-
-		WebElement exposicao = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[5]/span"));
-		assertTrue(exposicao.getText().equals("Análise de exposição"));
-
-		WebElement servico = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[6]/span"));
-		assertTrue(servico.getText().equals("Controle de serviços prestados"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",armazens.desafioContrato().equals("Gestão de contratos"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",armazens.desafioControleSaldoTerceiros().equals("Controle de saldos de terceiros"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",armazens.desafioControleRetencaoTrangenia().equals("Controle de retenções e transgenia"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",armazens.desafioExposicao().equals("Análise de exposição"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",armazens.desafioServicosPrestacao().equals("Controle de serviços prestados"));
+		
 	}
 
 	@Test

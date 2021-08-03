@@ -22,23 +22,23 @@ public class DistribuidorPage extends BasePage{
 	 click(By.xpath("//*[@id=\\\"segmentos-titulo\\\"]/div/div[1]/span"));
 
 		}
-	public String verificaEstoqueEficiente() {
+	public String desafioEstoqueEficiente() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]/span"));
 		
 		}
-	public String verificaFormacaodePrecos() {
+	public String desafioFormacaodePrecos() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[3]/span"));
 		
 		}
-	public String verificaGestaologistica() {
+	public String desafioGestaologistica() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[6]/span"));
 		
 		}
-	public String verificaMixAtividades() {
+	public String desafioMixAtividades() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[8]/span"));
 		
 		}
-	public String verificaGestaoOrcamentaria() {
+	public String desafioGestaoOrcamentaria() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[10]/span"));
 }
 	
