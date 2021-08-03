@@ -115,10 +115,9 @@ public class TestesSiagri {
 
 		loja.clickSoliciteDemostracao();
        // verificando abertura do formulário conforme a descrição
-		WebDriverWait wait = new WebDriverWait(driver, 20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
-
-       // Validar desafios
+		loja.aberturaFormulario();				
+		
+		// Validar desafios
 		Assert.assertTrue("Não é um desafio do segmento",loja.desafioAgilidade().equals("Agilidade no atendimento"));
 		
 		Assert.assertTrue("Não é um desafio do segmento",loja.desafioEficiencia().equals("Eficiência operacional"));
@@ -146,11 +145,7 @@ public class TestesSiagri {
 		
 		armazens.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
-		WebDriverWait wait = new WebDriverWait(driver, 20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
-		driver.findElement(By.xpath("//*[@id=\"form-close\"]")).click();
-
-		
+		armazens.aberturaFormulario();
 		// Validar desafios
 		
 		Assert.assertTrue("Não é um desafio do segmento",armazens.desafioContrato().equals("Gestão de contratos"));
@@ -177,10 +172,8 @@ public class TestesSiagri {
 
 		produtor.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
-		WebDriverWait wait = new WebDriverWait(driver, 20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
-		driver.findElement(By.xpath("//*[@id=\"form-close\"]")).click();
-		
+		produtor.aberturaFormulario();
+		//validar desafios
 		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioPlanejamentoSafra().equals("Planejamento de safra"));
 		
 		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioArmazenagem().equals("Gestão de estoque (armazenagem)"));
@@ -203,10 +196,9 @@ public class TestesSiagri {
 
 		sementeira.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
-		WebDriverWait wait = new WebDriverWait(driver, 20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
-		driver.findElement(By.xpath("//*[@id=\"form-close\"]")).click();
-	
+		sementeira.aberturaFormulario();
+		//validar desafios
+			
 		Assert.assertTrue("Não é um desafio do segmento",sementeira.desafioGestaoRecebimento().equals("Gestão de recebimento, produção e expedição de sementes"));
 		
 		Assert.assertTrue("Não é um desafio do segmento",sementeira.desafioControleLotes().equals("Controle de lotes"));

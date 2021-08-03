@@ -2,6 +2,8 @@ package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArmazensGeraisPage extends BasePage{
 
@@ -25,6 +27,11 @@ public class ArmazensGeraisPage extends BasePage{
 		}
 	public String clickSoliciteDemostracao() {
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
+		return null;
+	}
+	public String aberturaFormulario() {
+		WebDriverWait formulario = new WebDriverWait(driver, 20);
+		formulario.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-form")));
 		return null;
 	}
 	
