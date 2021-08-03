@@ -16,8 +16,12 @@ public class DistribuidorPage extends BasePage{
 		}
 	public String descricaoDistribuidor() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p"));
-		
-		}
+	}	
+	
+	public String clickSoliciteDemostracao() {
+		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
+		return null;
+	}		
 	public void clickFormulario() {
 	 click(By.xpath("//*[@id=\\\"segmentos-titulo\\\"]/div/div[1]/span"));
 
@@ -41,6 +45,7 @@ public class DistribuidorPage extends BasePage{
 	public String desafioGestaoOrcamentaria() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[10]/span"));
 }
+	
 	
 }
 

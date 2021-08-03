@@ -1,7 +1,7 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -9,43 +9,44 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import backup.ProdutoAgricolaPage;
-import backup.SementeiraPage;
 import page.ArmazensGeraisPage;
 import page.DistribuidorPage;
 import page.LojaPage;
-import page.Page;
+import page.MovimentaPage;
+import page.ProdutoAgricolaPage;
 import page.Segmentos;
+import page.SementeiraPage;
 import suporte.Web;
 
 public class TestesSiagri {
 
 	
 	private WebDriver driver;
-	private Page pagina;
-	private Controle controle;
+	private MovimentaPage pagina;
 	private Segmentos segmentos;
 	private DistribuidorPage distribuidor;
 	private LojaPage loja;
 	private ArmazensGeraisPage armazens;
+	private ProdutoAgricolaPage produtor;
+	private SementeiraPage sementeira;
 	
 	@Before
 	public void Conectar() {
 		driver = Web.createChrome();
-		controle = new Controle(driver);
 		segmentos = new Segmentos(driver);
-		pagina = new Page(driver);
+		pagina = new MovimentaPage(driver);
 		distribuidor = new DistribuidorPage(driver);
 		loja= new LojaPage(driver);
 		armazens= new ArmazensGeraisPage(driver);
+		produtor= new ProdutoAgricolaPage(driver);
+		sementeira=new SementeiraPage(driver);
 	}
-
+	
 	@After
-	public void Fechar() {
+	public void finaliza() throws IOException{
 		driver.quit();
 	}
 
@@ -80,9 +81,7 @@ public class TestesSiagri {
 				+ " Com o Grupo Siagri, você compra melhor, evita perdas no estoque, vende com mais eficiência e ainda tem mais segurança nas operações de Barter!",
 		distribuidor.descricaoDistribuidor());
 
-		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-		//distribuidor.clickFormulario();
-		
+		distribuidor.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição, será?
 
 		WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -104,8 +103,8 @@ public class TestesSiagri {
 
 	@Test
 	public void Exercicio3() {
-		// new Page(driver).clickSolucoes().menuSegmentos();
-		new LojaPage(driver).clickLojaAgropecuaria();
+		
+		pagina.clickLojaAgropecuaria();
 		
 		Assert.assertEquals("Softwares para gestão de lojas e varejo agropecuário",loja.tituloLoja());
 		
@@ -114,12 +113,13 @@ public class TestesSiagri {
 				+ "forma completa com o software Siagri.",
 				loja.descricaoLoja());
 
-		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-// verificando abertura do formulário conforme a descrição
+		//driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
+		loja.clickSoliciteDemostracao();
+       // verificando abertura do formulário conforme a descrição
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
 
-// Validar desafios
+       // Validar desafios
 		Assert.assertTrue("Não é um desafio do segmento",loja.desafioAgilidade().equals("Agilidade no atendimento"));
 		
 		Assert.assertTrue("Não é um desafio do segmento",loja.desafioEficiencia().equals("Eficiência operacional"));
@@ -135,7 +135,9 @@ public class TestesSiagri {
 	@Test
 	public void Exercicio4() {
 		// new Page(driver).clickSolucoes().menuSegmentos();
-		new ArmazensGeraisPage(driver).clickArmazensGerais();
+		//new ArmazensGeraisPage(driver).clickArmazensGerais();
+		pagina.clickArmazensGerais();
+		
 		Assert.assertEquals("Softwares para gestão de armazéns gerais e cerealistas", armazens.tituloArmazens());
 		
 		Assert.assertEquals(
@@ -143,8 +145,8 @@ public class TestesSiagri {
 				+ "com agilidade e segurança.",
 				armazens.descricaoArmazens());
 
-		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-		
+		//driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
+		armazens.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
@@ -168,15 +170,12 @@ public class TestesSiagri {
 	@Test
 	public void Exercicio5() {
 		// new Page(driver).clickSolucoes().menuSegmentos();
-		new ProdutoAgricolaPage(driver).clickProdutorAgricola();
-		String Titulo = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/h2")))
-				.getText();
-		assertEquals("Softwares de gestão para produtores de grãos e algodão", Titulo);
-		String descricao = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p")))
-				.getText();
-		assertEquals(
-				"Gestão do planejamento da safra à contabilidade. Com o Grupo Siagri você gerencia seu negócio de ponta a ponta, centralizando a gestão administrativa, financeira, fiscal e operacional.",
-				descricao);
+		pagina.clickProdutorAgricola();
+		Assert.assertEquals("Softwares de gestão para produtores de grãos e algodão", produtor.tituloProdutor());
+		Assert.assertEquals(
+					"Gestão do planejamento da safra à contabilidade. Com o Grupo Siagri você gerencia seu negócio de ponta a ponta, centralizando a gestão administrativa, "
+					+ "financeira, fiscal e operacional.",
+		produtor.descricaoProdutor());
 
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
 
@@ -184,36 +183,27 @@ public class TestesSiagri {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
 		driver.findElement(By.xpath("//*[@id=\"form-close\"]")).click();
-
-		WebElement safra = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]/span"));
-		assertTrue(safra.getText().equals("Planejamento de safra"));
-
-		WebElement armazenagem = driver
-				.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[2]/span"));
-		assertTrue(armazenagem.getText().equals("Gestão de estoque (armazenagem)"));
-
-		WebElement custo = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[5]/span"));
-		assertTrue(custo.getText().equals("Controle de custos"));
-
-		WebElement processo = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[9]/span"));
-		assertTrue(processo.getText().equals("Padronização de processos"));
-
-		WebElement orcamento = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[8]/span"));
-		assertTrue(orcamento.getText().equals("Gestão orçamentária"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioPlanejamentoSafra().equals("Planejamento de safra"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioArmazenagem().equals("Gestão de estoque (armazenagem)"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioControleCustos().equals("Controle de custos"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioPadronizacao().equals("Padronização de processos"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioGestaoOrcamentaria().equals("Gestão orçamentária"));
 	}
 
 	@Test
 	public void Exercicio6() {
 		// new Page(driver).clickSolucoes().menuSegmentos();
-		new SementeiraPage(driver).clickSementeira();
-		String Titulo = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/h2")))
-				.getText();
-		assertEquals("Softwares para gestão de sementeiras", Titulo);
-		String descricao = ((WebElement) driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p")))
-				.getText();
-		assertEquals(
+		//new SementeiraPage(driver).clickSementeira();
+		pagina.clickSementeira();
+		Assert.assertEquals("Softwares para gestão de sementeiras", sementeira.tituloSementeira());
+		Assert.assertEquals(
 				"Ganhe eficiência no processo de beneficiamento de sementes. Com as soluções Siagri, você gerencia desde o recebimento do grão, até o embarque de sementes.",
-				descricao);
+				sementeira.descricaoSementeira());
 
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
 
@@ -221,18 +211,15 @@ public class TestesSiagri {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
 		driver.findElement(By.xpath("//*[@id=\"form-close\"]")).click();
-
-		WebElement sementes = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]/span"));
-		assertTrue(sementes.getText().equals("Gestão de recebimento, produção e expedição de sementes"));
-
-		WebElement lotes = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[2]/span"));
-		assertTrue(lotes.getText().equals("Controle de lotes"));
-
-		WebElement vendas = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[3]/span"));
-		assertTrue(vendas.getText().equals("Gestão de vendas das semente"));
-
-		WebElement colheita = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[6]/span"));
-		assertTrue(colheita.getText().equals("Gestão da colheita e armazenagem de grãos"));
+	
+		Assert.assertTrue("Não é um desafio do segmento",sementeira.desafioGestaoRecebimento().equals("Gestão de recebimento, produção e expedição de sementes"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",sementeira.desafioControleLotes().equals("Controle de lotes"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",sementeira.desafioGestaoVendas().equals("Gestão de vendas das semente"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",sementeira.desafioGestaoColheita().equals("Gestão da colheita e armazenagem de grãos"));
+		
 	}
 
 }
