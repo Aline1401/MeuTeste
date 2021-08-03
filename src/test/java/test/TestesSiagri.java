@@ -29,7 +29,7 @@ public class TestesSiagri {
 	private Page pagina;
 	private Controle controle;
 	private Segmentos segmentos;
-	private DistribuidorPage distribuidor = new DistribuidorPage(driver);
+	private DistribuidorPage distribuidor;
 
 	@Before
 	public void Conectar() {
@@ -37,6 +37,7 @@ public class TestesSiagri {
 		controle = new Controle(driver);
 		segmentos = new Segmentos(driver);
 		pagina = new Page(driver);
+		distribuidor = new DistribuidorPage(driver);
 	}
 
 	@After
@@ -48,6 +49,7 @@ public class TestesSiagri {
 	public void Exercicio1() {
 
 		pagina.clickSegmentos();
+		
 		Assert.assertEquals("Distribuidor de insumos", segmentos.obterDistruibidor());
 
 		Assert.assertEquals("Loja agropecuária", segmentos.obterLoja());
@@ -73,8 +75,8 @@ public class TestesSiagri {
 				+ " Com o Grupo Siagri, você compra melhor, evita perdas no estoque, vende com mais eficiência e ainda tem mais segurança nas operações de Barter!",
 		distribuidor.descricaoDistribuidor());
 
-		//driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-		distribuidor.clickFormulario();
+		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
+		//distribuidor.clickFormulario();
 		
 		// verificando abertura do formulário conforme a descrição, será?
 
@@ -82,21 +84,17 @@ public class TestesSiagri {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
 
 		// Validar desafios
-		WebElement estoque = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]"));
-		assertTrue(estoque.getText().equals("Estoque eficiente"));
-
-		WebElement preco = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[3]/span"));
-		assertTrue(preco.getText().equals("Formação de preços"));
-
-		WebElement gestao = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[6]/span"));
-		assertTrue(gestao.getText().equals("Gestão de logística (expedição)"));
-
-		WebElement mix = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[8]/span"));
-		assertTrue(mix.getText().equals("Ampliar mix de atividades (armazenagem, Barter etc)"));
-
-		WebElement orcamento = driver.findElement(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[10]/span"));
-		assertTrue(orcamento.getText().equals("Gestão orçamentária"));
-
+		
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaEstoqueEficiente().equals("Estoque eficiente"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaFormacaodePrecos().equals("Formação de preços"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaGestaologistica().equals("Gestão de logística (expedição)"));
+		
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaMixAtividades().equals("Ampliar mix de atividades (armazenagem, Barter etc)"));
+				
+		Assert.assertTrue("Não é um desafio do segmento",distribuidor.verificaGestaoOrcamentaria1().equals("Gestão orçamentária"));
+		
 	}
 
 	@Test
