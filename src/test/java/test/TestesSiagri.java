@@ -113,7 +113,6 @@ public class TestesSiagri {
 				+ "forma completa com o software Siagri.",
 				loja.descricaoLoja());
 
-		//driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
 		loja.clickSoliciteDemostracao();
        // verificando abertura do formulário conforme a descrição
 		WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -134,8 +133,7 @@ public class TestesSiagri {
 
 	@Test
 	public void Exercicio4() {
-		// new Page(driver).clickSolucoes().menuSegmentos();
-		//new ArmazensGeraisPage(driver).clickArmazensGerais();
+		
 		pagina.clickArmazensGerais();
 		
 		Assert.assertEquals("Softwares para gestão de armazéns gerais e cerealistas", armazens.tituloArmazens());
@@ -145,7 +143,7 @@ public class TestesSiagri {
 				+ "com agilidade e segurança.",
 				armazens.descricaoArmazens());
 
-		//driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
+		
 		armazens.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
 		WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -169,7 +167,7 @@ public class TestesSiagri {
 
 	@Test
 	public void Exercicio5() {
-		// new Page(driver).clickSolucoes().menuSegmentos();
+		
 		pagina.clickProdutorAgricola();
 		Assert.assertEquals("Softwares de gestão para produtores de grãos e algodão", produtor.tituloProdutor());
 		Assert.assertEquals(
@@ -177,8 +175,7 @@ public class TestesSiagri {
 					+ "financeira, fiscal e operacional.",
 		produtor.descricaoProdutor());
 
-		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-
+		produtor.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
@@ -197,16 +194,14 @@ public class TestesSiagri {
 
 	@Test
 	public void Exercicio6() {
-		// new Page(driver).clickSolucoes().menuSegmentos();
-		//new SementeiraPage(driver).clickSementeira();
+		
 		pagina.clickSementeira();
 		Assert.assertEquals("Softwares para gestão de sementeiras", sementeira.tituloSementeira());
 		Assert.assertEquals(
 				"Ganhe eficiência no processo de beneficiamento de sementes. Com as soluções Siagri, você gerencia desde o recebimento do grão, até o embarque de sementes.",
 				sementeira.descricaoSementeira());
 
-		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-
+		sementeira.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
