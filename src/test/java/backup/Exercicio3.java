@@ -18,12 +18,12 @@ public class Exercicio3 {
 
 		pagina.clickLojaAgropecuaria();
 
-		Assert.assertEquals("Softwares para gestão de lojas e varejo agropecuário", loja.tituloLoja());
+		Assert.assertEquals("Softwares para gestão de lojas e varejo agropecuário", loja.getTituloLoja());
 
 		Assert.assertEquals(
 				"Ganhe agilidade em vendas, confiança nos controles de estoque e custos. Fidelize seu cliente e gerencie sua loja agropecuária de "
 						+ "forma completa com o software Siagri.",
-				loja.descricaoLoja());
+				loja.getDescricaoLoja());
 
 		loja.clickSoliciteDemostracao();
 		// verificando abertura do formulário conforme a descrição
@@ -32,16 +32,16 @@ public class Exercicio3 {
 		// wait.until(ExpectedConditions.presenceOfElementLocated(By.id("modal-form")));
 		// formulario.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-form")));
 		// Validar desafios
-		Assert.assertTrue("Não é um desafio do segmento", loja.desafioAgilidade().equals("Agilidade no atendimento"));
+		Assert.assertTrue("Não é um desafio do segmento", loja.getDesafioAgilidade().equals("Agilidade no atendimento"));
 
-		Assert.assertTrue("Não é um desafio do segmento", loja.desafioEficiencia().equals("Eficiência operacional"));
+		Assert.assertTrue("Não é um desafio do segmento", loja.getDesafioEficiencia().equals("Eficiência operacional"));
 
-		Assert.assertTrue("Não é um desafio do segmento", loja.desafioControle().equals("Controle de comissionamento"));
+		Assert.assertTrue("Não é um desafio do segmento", loja.getDesafioControle().equals("Controle de comissionamento"));
 
-		Assert.assertTrue("Não é um desafio do segmento", loja.desafioFiscal().equals("Conformidade fiscal"));
+		Assert.assertTrue("Não é um desafio do segmento", loja.getDesafioFiscal().equals("Conformidade fiscal"));
 
 		Assert.assertTrue("Não é um desafio do segmento",
-				loja.desafioFluxo().equals("Eficiência no fluxo de caixa em dia"));
+				loja.getDesafioFluxo().equals("Eficiência no fluxo de caixa em dia"));
 
 	}
 }

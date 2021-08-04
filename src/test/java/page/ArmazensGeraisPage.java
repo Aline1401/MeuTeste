@@ -17,11 +17,11 @@ public class ArmazensGeraisPage extends BasePage{
 		return this;
 	}
 
-	public String tituloArmazens() {
+	public String getTituloArmazens() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/h2"));
 		
 		}
-	public String descricaoArmazens() {
+	public String getDescricaoArmazens() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p"));
 		
 		}
@@ -34,24 +34,28 @@ public class ArmazensGeraisPage extends BasePage{
 		formulario.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-form")));
 		return null;
 	}
+
+	public void fecharFormulario() {
+		click(By.xpath("//*[@id=\"form-close\"]"));
+	}
 	
-	public String desafioContrato(){
+	public String getDesafioContrato(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]/span"));
 		
 		}
-	public String desafioControleSaldoTerceiros(){
+	public String getDesafioControleSaldoTerceiros(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[2]/span"));
 		
 		}
-	public String desafioControleRetencaoTrangenia(){
+	public String getDesafioControleRetencaoTrangenia(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[4]/span"));
 		
 		}
-	public String desafioExposicao(){
+	public String getDesafioExposicao(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[5]/span"));
 		
 		}
-	public String desafioServicosPrestacao(){
+	public String getDesafioServicosPrestacao(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[6]/span"));
 		
 		}

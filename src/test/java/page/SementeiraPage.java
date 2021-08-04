@@ -13,11 +13,11 @@ public class SementeiraPage extends BasePage{
 	}
 	
 	
-	public String tituloSementeira() {
+	public String getTituloSementeira() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/h2"));
 		
 		}
-	public String descricaoSementeira() {
+	public String getDescricaoSementeira() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p"));
 		
 		}
@@ -30,20 +30,23 @@ public class SementeiraPage extends BasePage{
 		formulario.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-form")));
 		return null;
 	}
+	public void fecharFormulario() {
+		click(By.xpath("//*[@id=\"form-close\"]"));
+	}
 		
-	public String desafioGestaoRecebimento(){
+	public String getDesafioGestaoRecebimento(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[1]/span"));
 		
 		}
-	public String desafioControleLotes(){
+	public String getDesafioControleLotes(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[2]/span"));
 		
 		}
-	public String desafioGestaoVendas(){
+	public String getDesafioGestaoVendas(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[3]/span"));
 		
 		}
-	public String desafioGestaoColheita(){
+	public String getDesafioGestaoColheita(){
 		return validaTexto(By.xpath("//*[@id=\"segmentos-vantagens\"]/div/div[2]/div[6]/span"));
 		
 		}
