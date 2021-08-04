@@ -2,6 +2,8 @@ package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DistribuidorPage extends BasePage{
 
@@ -22,6 +24,12 @@ public class DistribuidorPage extends BasePage{
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
 		return null;
 	}		
+	
+	public String aberturaFormulario() {
+		WebDriverWait formulario = new WebDriverWait(driver, 20);
+		formulario.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-form")));
+		return null;
+	}
 	public void clickFormulario() {
 	 click(By.xpath("//*[@id=\\\"segmentos-titulo\\\"]/div/div[1]/span"));
 

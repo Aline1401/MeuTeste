@@ -5,12 +5,8 @@ import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import page.ArmazensGeraisPage;
 import page.DistribuidorPage;
@@ -24,26 +20,15 @@ import suporte.Web;
 public class TestesSiagri {
 
 	
-	private WebDriver driver;
-	private MovimentaPage pagina;
-	private Segmentos segmentos;
-	private DistribuidorPage distribuidor;
-	private LojaPage loja;
-	private ArmazensGeraisPage armazens;
-	private ProdutoAgricolaPage produtor;
-	private SementeiraPage sementeira;
+	private WebDriver driver= Web.createChrome();
+	private MovimentaPage pagina=new MovimentaPage(driver);
+	private Segmentos segmentos= new Segmentos(driver);
+	private DistribuidorPage distribuidor=new DistribuidorPage(driver);
+	private LojaPage loja=new LojaPage(driver);
+	private ArmazensGeraisPage armazens=new ArmazensGeraisPage(driver);
+	private ProdutoAgricolaPage produtor=new ProdutoAgricolaPage(driver);
+	private SementeiraPage sementeira=new SementeiraPage(driver);
 	
-	@Before
-	public void Conectar() {
-		driver = Web.createChrome();
-		segmentos = new Segmentos(driver);
-		pagina = new MovimentaPage(driver);
-		distribuidor = new DistribuidorPage(driver);
-		loja= new LojaPage(driver);
-		armazens= new ArmazensGeraisPage(driver);
-		produtor= new ProdutoAgricolaPage(driver);
-		sementeira=new SementeiraPage(driver);
-	}
 	
 	@After
 	public void finaliza() throws IOException{
@@ -82,11 +67,9 @@ public class TestesSiagri {
 		distribuidor.descricaoDistribuidor());
 
 		distribuidor.clickSoliciteDemostracao();
-		// verificando abertura do formulário conforme a descrição, será?
+		// verificando abertura do formulário 
 
-		WebDriverWait wait = new WebDriverWait(driver, 20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modal-form\"]/div/h4")));
-
+		distribuidor.aberturaFormulario();
 		// Validar desafios
 		
 		Assert.assertTrue("Não é um desafio do segmento",distribuidor.desafioEstoqueEficiente().equals("Estoque eficiente"));
@@ -144,7 +127,7 @@ public class TestesSiagri {
 
 		
 		armazens.clickSoliciteDemostracao();
-		// verificando abertura do formulário conforme a descrição
+		// verificando abertura do formulário
 		armazens.aberturaFormulario();
 		// Validar desafios
 		
@@ -171,7 +154,7 @@ public class TestesSiagri {
 		produtor.descricaoProdutor());
 
 		produtor.clickSoliciteDemostracao();
-		// verificando abertura do formulário conforme a descrição
+		// verificando abertura do formulário 
 		produtor.aberturaFormulario();
 		//validar desafios
 		Assert.assertTrue("Não é um desafio do segmento",produtor.desafioPlanejamentoSafra().equals("Planejamento de safra"));
@@ -195,7 +178,7 @@ public class TestesSiagri {
 				sementeira.descricaoSementeira());
 
 		sementeira.clickSoliciteDemostracao();
-		// verificando abertura do formulário conforme a descrição
+		// verificando abertura do formulário
 		sementeira.aberturaFormulario();
 		//validar desafios
 			

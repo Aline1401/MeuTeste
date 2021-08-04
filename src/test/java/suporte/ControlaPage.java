@@ -1,13 +1,13 @@
-package test;
+package suporte;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import page.BasePage;
 
-public class Controle extends BasePage{
+public class ControlaPage extends BasePage{
 
-	public Controle(WebDriver driver) {
+	public ControlaPage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
