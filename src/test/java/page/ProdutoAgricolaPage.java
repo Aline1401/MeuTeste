@@ -28,15 +28,14 @@ public class ProdutoAgricolaPage extends BasePage {
 
 	}
 
-	public String clickSoliciteDemostracao() {
+	public void clickSoliciteDemostracao() {
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-		return null;
 	}
 
-	public String aberturaFormulario() {
+	public void aberturaFormulario() {
 		WebDriverWait formulario = new WebDriverWait(driver, 20);
 		formulario.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-form")));
-		return null;
+
 	}
 
 	public void fecharFormulario() {

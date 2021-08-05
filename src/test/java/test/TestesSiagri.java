@@ -74,7 +74,7 @@ public class TestesSiagri {
 		Assert.assertEquals(
 				"Otimize processos, reduza desperdícios e tenha o controle de suas lojas em qualquer hora e lugar."
 						+ " Com o Grupo Siagri, você compra melhor, evita perdas no estoque, vende com mais eficiência e ainda tem mais segurança nas operações de Barter!",
-				distribuidor.getDescricaoDistribuidor());
+				distribuidor.getDescricaoDistruibuidor());
 
 		distribuidor.clickSoliciteDemostracao();
 		distribuidor.aberturaFormulario();

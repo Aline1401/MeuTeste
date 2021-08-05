@@ -17,13 +17,14 @@ public class DistribuidorPage extends BasePage {
 
 	}
 
-	public String getDescricaoDistribuidor() {
+	public String getDescricaoDistruibuidor() {
 		return validaTexto(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/p"));
+
 	}
 
-	public String clickSoliciteDemostracao() {
+	public void clickSoliciteDemostracao() {
 		driver.findElement(By.xpath("//*[@id=\"segmentos-titulo\"]/div/div[1]/span")).click();
-		return null;
+
 	}
 
 	public void clickFormulario() {
@@ -31,10 +32,10 @@ public class DistribuidorPage extends BasePage {
 
 	}
 
-	public String aberturaFormulario() {
+	public void aberturaFormulario() {
 		WebDriverWait formulario = new WebDriverWait(driver, 20);
 		formulario.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-form")));
-		return null;
+
 	}
 
 	public void fecharFormulario() {
